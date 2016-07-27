@@ -14,7 +14,7 @@
 
 #define SAMPLE_RATE 44100 //sampling rate
 #define LENGTH 5 //seconds
-#define AMPLITUDE 1.0// 16bit
+#define AMPLITUDE 0.7// 16bit 0~1
 #define CHANNEL_NUM 1//channel
 #define OUT_FILE "OutWave.wav"
 
@@ -22,8 +22,8 @@ int main(void)
 
 {
     int F0 = 440;
-    int mode = 1;
-    int n = 20;
+    int mode = 2;
+    int n = 200;
     SNDFILE *fp;
     SF_INFO sfinfo;
     
@@ -41,22 +41,53 @@ int main(void)
         return 1;
     }
     
-    for(int t = 0; t < SAMPLE_RATE*LENGTH; t++){ // STEREO
+    //sample loop
+    for(int t = 0; t < SAMPLE_RATE*LENGTH; t++){
+        //channel loop
         for(int c = 0; c < CHANNEL_NUM; c++){
             if(mode == 0){
-                buffer[CHANNEL_NUM*t + c] = AMPLITUDE * sin(2.0 * M_PI * ((float)F0 / SAMPLE_RATE) * t);
+                
+                buffer[CHANNEL_NUM*t + c] = sin(2.0 * M_PI * ((float)F0 / SAMPLE_RATE) * t);
+                
             }else if (mode == 1){
                 
-                float normal = 0;
+                float summation = 0;
                 
                 for (int k = 1; k <= n; k++) {
-                    normal += (-4.0*sin(M_PI * k) + 8.0*sin(M_PI*k/2.0))/(pow(k*M_PI, 2)) * sin(2*M_PI*k*((float)F0 / SAMPLE_RATE)*t);
+                    summation += (1.0/pow(k, 2) * sin(M_PI * k / 2.0) * sin(2.0 * M_PI * k * ((float)F0 / SAMPLE_RATE) * t));
                 }
                 
-                buffer[CHANNEL_NUM*t + c] = AMPLITUDE * normal;
+                buffer[CHANNEL_NUM*t + c] = 8.0/pow(M_PI, 2) * summation;
                 
+            }else if(mode == 2){
+                
+                float summation = 0;
+                
+                for (int k = 1; k <= n; k++) {
+                    summation += sin(2.0 * M_PI * (2.0*k - 1.0) * ((float)F0 / SAMPLE_RATE) * t) / (2.0*k - 1.0);
+                }
+                
+                buffer[CHANNEL_NUM*t + c] = (4.0/M_PI) * summation;
+                
+            }else if (mode == 3){
+                
+                float summation = 0;
+                
+                for (int k = 1; k <= n; k++) {
+                    summation += (1.0/k * pow(-1, k+1) * sin(2.0 * M_PI * k * ((float)F0 / SAMPLE_RATE) * t));
+                }
+                
+                buffer[CHANNEL_NUM*t + c] = 2.0/M_PI * summation;
+
             }
+            
+            
+            
+            buffer[CHANNEL_NUM*t + c] *= AMPLITUDE;
         }
+        
+        
+        
     }
     
     if(sf_write_float(fp, buffer, sfinfo.channels * SAMPLE_RATE*LENGTH) != sfinfo.channels * sfinfo.frames){
