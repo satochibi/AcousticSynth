@@ -18,12 +18,23 @@
 #define CHANNEL_NUM 1//channel
 #define OUT_FILE "OutWave.wav"
 
+enum WaveMode
+{
+    SIN_WAVE = 0,
+    TRIANGLE_WAVE = 1,
+    SQUARE_WAVE = 2,
+    SAWTOOTH_WAVE = 3,
+};
+
+
 int main(void)
 
 {
     int F0 = 440;
-    int mode = 2;
     int n = 200;
+    WaveMode mode = SQUARE_WAVE;
+    
+    
     SNDFILE *fp;
     SF_INFO sfinfo;
     
@@ -45,11 +56,11 @@ int main(void)
     for(int t = 0; t < SAMPLE_RATE*LENGTH; t++){
         //channel loop
         for(int c = 0; c < CHANNEL_NUM; c++){
-            if(mode == 0){
+            if(mode == SIN_WAVE){
                 
                 buffer[CHANNEL_NUM*t + c] = sin(2.0 * M_PI * ((float)F0 / SAMPLE_RATE) * t);
                 
-            }else if (mode == 1){
+            }else if (mode == TRIANGLE_WAVE){
                 
                 float summation = 0;
                 
@@ -59,7 +70,7 @@ int main(void)
                 
                 buffer[CHANNEL_NUM*t + c] = 8.0/pow(M_PI, 2) * summation;
                 
-            }else if(mode == 2){
+            }else if(mode == SQUARE_WAVE){
                 
                 float summation = 0;
                 
@@ -69,7 +80,7 @@ int main(void)
                 
                 buffer[CHANNEL_NUM*t + c] = (4.0/M_PI) * summation;
                 
-            }else if (mode == 3){
+            }else if (mode == SAWTOOTH_WAVE){
                 
                 float summation = 0;
                 
