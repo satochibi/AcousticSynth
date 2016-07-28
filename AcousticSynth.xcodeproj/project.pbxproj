@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		75A6053F1D48A70900ABC09C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75A6053E1D48A70900ABC09C /* main.cpp */; };
-		75A605481D48A7B100ABC09C /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A605471D48A7B100ABC09C /* libsndfile.a */; };
+		75A8F18D1D49C62D005AA08D /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A8F18A1D49C62D005AA08D /* libsndfile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,9 +26,9 @@
 /* Begin PBXFileReference section */
 		75A6053B1D48A70900ABC09C /* AcousticSynth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AcousticSynth; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A6053E1D48A70900ABC09C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		75A605451D48A7A100ABC09C /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../../../opt/local/include/sndfile.h; sourceTree = "<group>"; };
-		75A605461D48A7A100ABC09C /* sndfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sndfile.hh; path = ../../../../../../opt/local/include/sndfile.hh; sourceTree = "<group>"; };
-		75A605471D48A7B100ABC09C /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = ../../../../../../opt/local/lib/libsndfile.a; sourceTree = "<group>"; };
+		75A8F18A1D49C62D005AA08D /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsndfile.a; sourceTree = "<group>"; };
+		75A8F18B1D49C62D005AA08D /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sndfile.h; sourceTree = "<group>"; };
+		75A8F18C1D49C62D005AA08D /* sndfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sndfile.hh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75A605481D48A7B100ABC09C /* libsndfile.a in Frameworks */,
+				75A8F18D1D49C62D005AA08D /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,9 +62,9 @@
 		75A6053D1D48A70900ABC09C /* AcousticSynth */ = {
 			isa = PBXGroup;
 			children = (
-				75A605451D48A7A100ABC09C /* sndfile.h */,
-				75A605461D48A7A100ABC09C /* sndfile.hh */,
-				75A605471D48A7B100ABC09C /* libsndfile.a */,
+				75A8F18A1D49C62D005AA08D /* libsndfile.a */,
+				75A8F18B1D49C62D005AA08D /* sndfile.h */,
+				75A8F18C1D49C62D005AA08D /* sndfile.hh */,
 				75A6053E1D48A70900ABC09C /* main.cpp */,
 			);
 			path = AcousticSynth;
@@ -220,6 +220,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
+					"$(PROJECT_DIR)/AcousticSynth",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -231,6 +232,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
+					"$(PROJECT_DIR)/AcousticSynth",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -255,6 +257,7 @@
 				75A605441D48A70900ABC09C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
